@@ -89,7 +89,7 @@ bgLightGray
 # 开发模式
 
 在 template 文件夹中新增自己的模板;
-在 `src/index.ts` 中的 `FRAMEWORKS` 中新增自己所需的框架和框架模板，`variants` 中的 `name` 需要和框架中 `package.json` 中的`name`保持一致。
+在 `src/templates.ts` 中新增自己所需的框架和框架模板，`templates` 中的 `name` 需要和框架中 `package.json` 中的`name`保持一致。
 选项目标的颜色在上述中可自定义选择
 
 ```sh
