@@ -18,6 +18,9 @@ const renameFiles: Record<string, string | undefined> = {
 
 const defaultTargetDir = 'dsa-vite-project'
 
+/**
+ * 初始化 core
+ */
 async function init() {
   let targetDir = defaultTargetDir
 
@@ -65,7 +68,7 @@ async function init() {
     return
   }
 
-  // user choice associated with prompts
+  // 选择 prompts 中与用户关联的模板
   const { variant } = result
 
   const root = path.join(cwd, targetDir)
@@ -124,10 +127,20 @@ async function init() {
   logger(`  ${pkgManager} run dev`)
 }
 
+/**
+ * 输入项目名称
+ * @param targetDir 
+ * @returns 
+ */
 function formatTargetDir(targetDir: string | undefined) {
   return targetDir?.trim().replace(/\/+$/g, '')
 }
 
+/**
+ * 拷贝复制文件
+ * @param src 
+ * @param dest 
+ */
 function copy(src: string, dest: string) {
   const stat = fs.statSync(src)
   if (stat.isDirectory()) {
@@ -137,7 +150,14 @@ function copy(src: string, dest: string) {
   }
 }
 
+/**
+ * 拷贝文件路径
+ * @param srcDir 
+ * @param destDir 
+ */
 function copyDir(srcDir: string, destDir: string) {
+  console.log(srcDir, destDir, 'srcDir');
+  
   fs.mkdirSync(destDir, { recursive: true })
   for (const file of fs.readdirSync(srcDir)) {
     const srcFile = path.resolve(srcDir, file)
