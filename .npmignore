@@ -1,0 +1,10 @@
+# 忽略目录
+node_modules
+src
+
+# 忽略指定文件
+.gitignore
+index.js
+build.config.ts
+tsconfig.json
+*.yaml

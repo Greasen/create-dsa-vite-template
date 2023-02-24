@@ -1,0 +1,33 @@
+{
+  "name": "create-dsa-vite-template",
+  "version": "0.0.0-beta.2",
+  "description": "create vite app template",
+  "type": "module",
+  "author": "wgg",
+  "license": "MIT",
+  "bin": {
+    "create-dsa-vite-template": "index.js",
+    "cdvt": "index.js"
+  },
+  "files": [
+    "index.js",
+    "template/*",
+    "dist"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.0",
+    "@types/prompts": "^2.0.14",
+    "gradient-string": "2.0.2",
+    "kolorist": "^1.6.0",
+    "prompts": "^2.4.2",
+    "unbuild": "^0.8.11"
+  }
+}
