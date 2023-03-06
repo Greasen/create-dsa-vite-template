@@ -6,7 +6,7 @@ import { red, reset } from 'kolorist'
 import { templates } from './templates'
 import { logger } from './utils/log'
 
-logger(`\n🍰 Welcome Use Vite To Create Template!\n`)
+logger(`\n🍰 欢迎使用 vite 创建模板!\n`)
 
 const cwd = process.cwd()
 
@@ -17,6 +17,33 @@ const renameFiles: Record<string, string | undefined> = {
 }
 
 const defaultTargetDir = 'dsa-vite-project'
+
+/**
+ * @Description 校验包名称
+ * @date 2023-03-06
+ * @param {any} projectName:string
+ * @returns {any}
+ */
+function isValidPackageName(projectName: string) {
+  return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
+    projectName
+  )
+}
+
+/**
+ * @Description 新增包名称
+ * @date 2023-03-06
+ * @param {any} projectName:string
+ * @returns {any}
+ */
+function toValidPackageName(projectName: string) {
+  return projectName
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/^[._]/, '')
+    .replace(/[^a-z0-9-~]+/g, '-')
+}
 
 /**
  * 初始化 core
@@ -37,16 +64,23 @@ async function init() {
         {
           type: 'text',
           name: 'projectName',
-          message: reset('项目名称:'),
+          message: reset('Project name:'),
           initial: defaultTargetDir,
           onState: (state: { value: string | undefined }) => {
             targetDir = formatTargetDir(state.value) || defaultTargetDir
           }
         },
         {
+          type: 'text',
+          name: 'packageName',
+          message: reset('Package name:'),
+          initial: () => toValidPackageName(getProjectName()),
+          validate: (dir) => isValidPackageName(dir) || 'Invalid package.json name'
+        },
+        {
           type: "select",
           name: 'variant',
-          message: reset('选择一个模板:'),
+          message: reset('Select a framework:'),
           choices: () =>
             variants.map((variant) => {
               const variantColor = variant.color
@@ -157,7 +191,7 @@ function copy(src: string, dest: string) {
  */
 function copyDir(srcDir: string, destDir: string) {
   console.log(srcDir, destDir, 'srcDir');
-  
+
   fs.mkdirSync(destDir, { recursive: true })
   for (const file of fs.readdirSync(srcDir)) {
     const srcFile = path.resolve(srcDir, file)
